@@ -1,0 +1,80 @@
+# The URL the site will be built for
+base_url = "https://seanwatters.uk"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+theme = "DeepThought"
+
+hard_link_static = true
+
+ignored_content = []
+
+generate_feeds = true
+
+feed_filenames = ["rss.xml"]
+
+taxonomies = [
+    { name = "categories", feed = true, paginate_by = 10 },
+    { name = "tags", feed = true, paginate_by = 10 },
+]
+
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = false
+
+[extra]
+# Put all your custom variables here
+katex.enabled = true
+katex.auto_render = true
+
+chart.enabled = true
+mermaid.enabled = true
+galleria.enabled = true
+
+navbar_items = [
+ { code = "en", nav_items = [
+  { url = "$BASE_URL/", name = "Home" },
+  { url = "$BASE_URL/categories/publication", name = "Publications" },
+  { url = "$BASE_URL/research", name = "Research Activity" },
+  { url = "$BASE_URL/posts", name = "Blog" },
+  { url = "$BASE_URL/cv.pdf", name = "CV" },
+ ]},
+]
+
+# Add links to favicon, you can use https://realfavicongenerator.net/ to generate favicon for your site
+[extra.favicon]
+favicon_16x16 = "/icons/favicon-16x16.png"
+favicon_32x32 = "/icons/favicon-32x32.png"
+apple_touch_icon = "/icons/apple-touch-icon.png"
+safari_pinned_tab = "/icons/safari-pinned-tab.svg"
+webmanifest = "/icons/site.webmanifest"
+
+# Author details
+[extra.author]
+name = "Sean Watters"
+avatar = "/portrait.jpg"
+
+# Social links
+[extra.social]
+email = "sean.watters@strath.ac.uk"
+# facebook = "<facebook_username>"
+github = "Sean-Watters"
+gitlab = "SeanWatters"
+# keybase = "<keybase_username>"
+linkedin = "seanwwatters"
+# stackoverflow = "<stackoverflow_userid>"
+# twitter = "<twitter_username>"
+# instagram = "<instagram_username>"
+# behance = "<behance_username>"
+google_scholar = "iMJ8KUMAAAAJ"
+orcid = "0009-0007-1249-254X"
+mastodon_username = "seanw"
+mastodon_server = "mathstodon.xyz" #(if not set, defaults to mastodon.social)
+
+

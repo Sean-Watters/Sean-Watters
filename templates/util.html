@@ -1,0 +1,360 @@
+{% macro icons(page) %}
+
+{% for x in page.extra.attachments %}
+{% set path = get_url(path="attachments/" ~ x['pdf'] ~ ".pdf") %}
+<a class="has-text-primary-dark" href="{{path}}" target="_blank">
+  <span class="icon-text">
+    <span class="icon" title="{{ page.title | title }} (pdf)">
+      {% if x['kind'] == "journal" %}
+      <i class="fas fa-newspaper"></i>
+      {% elif x['kind'] == "proceedings" %}
+      <i class="fas fa-people-roof"></i>
+      {% elif x['kind'] == "submission" %}
+      <i class="fas fa-paper-plane"></i>
+      {% elif x['kind'] == "slides" %}
+      <i class="fas fa-person-chalkboard"></i>
+      {% elif x['kind'] == "poster" %}
+      <i class="fas fa-scroll"></i>
+      {% else %}
+      <i class="fas fa-clapperboard"></i>
+      {% endif %}
+    </span>
+    <span class="{% if not x['slug'] %}mr-3{% endif %}">
+      {{ x['kind'] }}
+    </span>
+  </span>
+</a>
+{% if x['slug'] %}
+{% set slugpath = get_url(path="research/" ~ x['slug']) %}
+<a class="has-text-primary" href="{{slugpath}}" target="_blank">
+  <i class="fas fa-magnifying-glass-arrow-right"></i>
+  <span class="{% if x['slug'] %}mr-3{% endif %}">
+  </span>
+</a>
+{% endif %}
+{% endfor %}
+
+{% if page.extra.slides %}
+<a class="has-text-primary-dark" href="{{ page.path }}slides.pdf" target="_blank">
+  <span class="icon" title="slides (pdf)">
+    <i class="fas fa-clapperboard"></i>
+  </span>
+  <span class="mr-3">
+    Slides
+  </span>
+</a>
+{% endif %}
+
+{% if page.extra.poster %}
+<a class="has-text-primary-dark" href="{{ page.path }}poster.pdf" target="_blank">
+  <span class="icon" title="poster (pdf)">
+    <i class="fas fa-person-chalkboard"></i>
+  </span>
+  <span class="mr-3">
+    Poster
+  </span>
+</a>
+{% endif %}
+
+{% if page.extra.youtube %}
+<a class="has-text-youtube" href="https://www.youtube.com/embed/{{ page.extra.youtube }}" target="_blank">
+  <span class="icon" title="talk (youtube)">
+    <i class="fab fa-youtube"></i>
+  </span>
+  <span class="mr-3">
+    Youtube
+  </span>
+</a>
+{% endif %}
+
+{% endmacro %}
+
+
+
+
+{% macro page_publish_metadata(page) %}
+{% if page.path is starting_with("/talks") %}
+{% if page.extra.pdf %}
+<a class="has-text-primary-dark" href="{{ page.path ~ page.extra.pdf }}.pdf" target="_blank">
+  <span class="icon" title="presentation (pdf)">
+    <i class="fas fa-file-pdf"></i>
+  </span>
+  <span>slides</span>
+</a>
+{% endif %}
+{% elif page.path is starting_with("/research") %}
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    {% if page.authors | length == 1 %}
+    <i class="fas fa-user"></i>
+    {% else %}
+    <i class="fas fa-users"></i>
+    {% endif %}
+  </span>
+  <span>{{ page.authors | join(sep=", ") }}</span>
+</span>
+{% endif %}
+{% if page.path is starting_with("/posts") %}
+<span class="icon-text has-text-grey">
+  {% if page.draft %}
+  <span class="icon">
+    <i class="fas fa-i-cursor"></i>
+  </span>
+  {% else %}
+  <span class="icon">
+    <i class="far fa-calendar-alt"></i>
+  </span>
+  <span><time datetime="{{ page.date }}">{{ page.date | date(format='%d %b %Y') }}</time></span>
+  {% endif %}
+</span>
+{% endif %}
+{% endmacro %}
+
+
+
+
+{% macro page_content_metadata(page) %}
+{% if page.path is starting_with("/talks") %}
+<span class="icon">
+  <i class="far fa-calendar-alt"></i>
+</span>
+<span><time datetime="{{ page.date }}">{{ page.date | date(format='%d %b %Y') }}</time></span>
+{% endif %}
+{% if page.path is starting_with("/research") %}
+{% if page.extra.doi %}
+<a class="has-text-doi" href="https://doi.org/{{ page.extra.doi }}" target="_blank">
+  <span class="icon" title="{{ page.extra.doi }}">
+    <i class="ai ai-doi"></i>
+  </span>
+</a>
+{% endif %}
+<span class="icon is-small">
+  <i class="far fa-calendar-alt"></i>
+</span>
+<span><time datetime="{{ page.date }}">{{ page.date | date(format='%d %b %Y') }}</time></span>
+{% endif %}
+{% if page.path is starting_with("/posts") %}
+<span class="icon-text has-text-grey">
+  <span class="icon">
+    <i class="far fa-clock"></i>
+  </span>
+  <span>{{ page.reading_time }} min,</span>
+  <span class="icon">
+    <i class="fas fa-pencil-alt"></i>
+  </span>
+  <span>{{ page.word_count }} words</span>
+</span>
+{% endif %}
+{% endmacro %}
+
+
+
+
+{% macro maybe_venuelink(page) %}
+{% if page.extra.venuelink %}
+<a href={{ page.extra.venuelink }}>{{ page.extra.venue }}</a>
+{% else %}
+{{ page.extra.venue }}
+{% endif %}
+{% endmacro %}
+
+{% macro page_title_metadata(page) %}
+{% if page.extra.review %} <span class="has-text-warning-dark"> {% endif %}
+  {% if page.path is starting_with("/research") %}
+  {% if page.extra.review %}
+  <i class="fas fa-person-praying"></i>
+  Submitted a paper to {{ page.extra.venue }} for review
+  {% elif page.extra.accepted %}
+  <i class="fas fa-champagne-glasses"></i>
+  Submission to {{ page.extra.venue }} accepted
+  {% elif "Poster" in page.taxonomies.categories %}
+  <i class="fas fa-scroll"></i>
+  Presented a poster at {{ page.extra.venue }}
+  {% elif "Workshop" in page.taxonomies.categories  %}
+  <i class="fas fa-person-chalkboard"></i>
+  Gave a talk at {{ page.extra.venue }}
+  {% elif "Conference" in page.taxonomies.categories  %}
+  <i class="fas fa-person-chalkboard"></i>
+  Published at {{ util::maybe_venuelink(page=page) }}
+  {% elif "Journal" in page.taxonomies.categories %}
+  <i class="fas fa-newspaper"></i>
+  Published in {{ util::maybe_venuelink(page=page) }}
+  {% else %}
+  {{ page.extra.venue }}
+  {% endif %}
+  {% else %} {{ page.title }} {% endif %}
+  {% if page.extra.review %} </span> {% endif %}
+{% endmacro %}
+
+
+
+
+{% macro page_subtitle_metadata(page,news=false) %}
+{% if page.path is starting_with("/research") %}
+{% if page.extra.review %} <span class="has-text-warning-dark"> {% endif %}
+  {% if news %} <span class="has-text-weight-medium">Title:</span> {{ page.title }} {% else %} <span class="has-text-weight-medium">Venue:</span> {{ page.extra.venue }} {% endif %}
+{% if page.extra.review %} </span> {% endif %}
+{% if not news %}
+
+{% if page.extra.review %}
+<br/>
+<span class="has-text-warning-dark">
+  <i class="fas fa-paper-plane"></i>
+  Submitted for review
+</span>
+{% endif %}
+{% if page.extra.accepted %}
+<br/>
+<span class="has-text-info-dark">
+  <i class="fas fa-stamp"></i>
+  Accepted for publication
+</span>
+{% endif %}
+{% if page.extra.citation %}
+<br/>
+<small> <span class="has-text-warning-dark">{{ page.extra.citation }}</span> </small>
+{% endif %}
+{% if page.extra.distinctions %}
+{% for distinction in page.extra.distinctions %}
+<br/>
+<span class="has-text-success-dark">
+  <i class="fas fa-medal"></i>
+  {{ distinction }}
+</span>
+{% endfor %}
+{% endif %}
+
+{% endif %}
+{% else %}
+{{ page.description }}
+{% endif %}
+{% endmacro %}
+
+
+
+
+{% macro page_body_metadata(page) %}
+{% if page.path is starting_with("/talks") %}
+{{ page.content | safe }}
+{% if page.extra.youtube %}
+<div class="youtube is-flex is-justify-content-center is-align-items-center">
+  <iframe
+      width="848" height="510"
+      src="https://www.youtube.com/embed/{{ page.extra.youtube }}"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+  </iframe>
+</div>
+{% endif %}
+{% elif page.path is starting_with("/research") %}
+<p>
+  {{ util::icons(page=page) }}
+</p>
+{% if page.extra.abstract %}
+<p>
+  <span class="has-text-info has-text-weight-semibold">Abstract: </span>
+  {{ page.extra.abstract | safe }}
+</p>
+{% endif %}
+
+{% if page.extra.youtube %}
+<div class="youtube is-flex is-justify-content-center is-align-items-center">
+  <iframe
+      width="848" height="510"
+      src="https://www.youtube.com/embed/{{ page.extra.youtube }}"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+  </iframe>
+</div>
+{% endif %}
+
+{% else %}
+{{ page.content | safe }}
+{% endif %}
+{% endmacro %}
+
+
+
+
+{% macro page_summary_metadata(page) %}
+{% if page.path is starting_with("/talks") %}
+{{ page.content | safe }}
+{% if page.extra.youtube %}
+<div class="youtube is-flex is-justify-content-center is-align-items-center">
+  <iframe
+      width="848" height="510"
+      src="https://www.youtube.com/embed/{{ page.extra.youtube }}"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+  </iframe>
+</div>
+{% endif %}
+{% elif page.path is starting_with("/research") %}
+
+<p>
+
+  {% if page.extra.abstract %}
+  <a class="has-text-info has-text-weight-semibold" href='{{ page.permalink }}'>
+    <span class="icon">
+      <i class="fas fa-cloud"></i>
+    </span>
+    <span class="mr-3">
+      abstract
+    </span>
+  </a>
+{% endif %}
+  {{ util::icons(page=page) }}
+</p>
+
+
+{% else %}
+{{ page.summary | safe }}
+<p>
+  <a class="has-text-danger-dark has-text-weight-semibold" href='{{ page.permalink }}'>
+    Read More
+    <span class="icon">
+      <i class="fas fa-arrow-right fa-xs"></i>
+    </span>
+  </a>
+</p>
+{% endif %}
+{% endmacro %}
+
+
+
+
+{% macro render_categories(categories) %}
+<p>
+  {% for category in categories %}
+  <a class="has-text-info-dark has-text-weight-semibold" href="{{ get_taxonomy_url(kind='categories', name=category) }}">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-cube"></i>
+      </span>
+      <span>{{category}}</span>
+    </span>
+  </a>
+  {% endfor %}
+</p>
+{% endmacro %}
+
+
+
+
+{% macro render_tags(tags) %}
+<p>
+  {% for tag in tags %}
+  <a class="has-text-info-dark has-text-weight-semibold" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">
+    <span class="icon-text">
+      <span class="icon">
+        <i class="fas fa-tag"></i>
+      </span>
+      <span>{{tag}}</span>
+    </span>
+  </a>
+  {% endfor %}
+</p>
+{% endmacro %}

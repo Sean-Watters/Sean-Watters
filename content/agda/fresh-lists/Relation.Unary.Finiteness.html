@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>Relation.Unary.Finiteness</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Keyword">open</a> <a id="6" class="Keyword">import</a> <a id="13" href="Relation.Binary.html" class="Module">Relation.Binary</a>
+
+<a id="30" class="Keyword">module</a> <a id="37" href="Relation.Unary.Finiteness.html" class="Module">Relation.Unary.Finiteness</a> <a id="63" class="Symbol">{</a><a id="64" href="Relation.Unary.Finiteness.html#64" class="Bound">a</a> <a id="66" href="Relation.Unary.Finiteness.html#66" class="Bound">b</a><a id="67" class="Symbol">}</a> <a id="69" class="Symbol">(</a><a id="70" href="Relation.Unary.Finiteness.html#70" class="Bound">X</a> <a id="72" class="Symbol">:</a> <a id="74" href="Relation.Binary.Bundles.html#1041" class="Record">Setoid</a> <a id="81" href="Relation.Unary.Finiteness.html#64" class="Bound">a</a> <a id="83" href="Relation.Unary.Finiteness.html#66" class="Bound">b</a><a id="84" class="Symbol">)</a> <a id="86" class="Keyword">where</a>
+
+<a id="93" class="Keyword">open</a> <a id="98" class="Keyword">import</a> <a id="105" href="Level.html" class="Module">Level</a>
+<a id="111" class="Keyword">open</a> <a id="116" class="Keyword">import</a> <a id="123" href="Data.List.html" class="Module">Data.List</a>
+<a id="133" class="Keyword">open</a> <a id="138" class="Keyword">import</a> <a id="145" href="Data.Product.html" class="Module">Data.Product</a>
+<a id="158" class="Keyword">open</a> <a id="163" class="Keyword">import</a> <a id="170" href="Data.List.Membership.Setoid.html" class="Module">Data.List.Membership.Setoid</a> <a id="198" href="Relation.Unary.Finiteness.html#70" class="Bound">X</a>
+
+<a id="201" class="Keyword">open</a> <a id="206" href="Relation.Binary.Bundles.html#1041" class="Module">Setoid</a>
+
+<a id="is-enumeration"></a><a id="214" href="Relation.Unary.Finiteness.html#214" class="Function">is-enumeration</a> <a id="229" class="Symbol">:</a> <a id="231" class="Symbol">(</a><a id="232" href="Relation.Unary.Finiteness.html#232" class="Bound">L</a> <a id="234" class="Symbol">:</a> <a id="236" href="Agda.Builtin.List.html#130" class="Datatype">List</a> <a id="241" class="Symbol">(</a><a id="242" href="Relation.Binary.Bundles.html#1104" class="Field">Carrier</a> <a id="250" href="Relation.Unary.Finiteness.html#70" class="Bound">X</a><a id="251" class="Symbol">))</a> <a id="254" class="Symbol">→</a> <a id="256" href="Agda.Primitive.html#320" class="Primitive">Set</a> <a id="260" class="Symbol">(</a><a id="261" href="Relation.Unary.Finiteness.html#64" class="Bound">a</a> <a id="263" href="Agda.Primitive.html#804" class="Primitive Operator">⊔</a> <a id="265" href="Relation.Unary.Finiteness.html#66" class="Bound">b</a><a id="266" class="Symbol">)</a>
+<a id="268" href="Relation.Unary.Finiteness.html#214" class="Function">is-enumeration</a> <a id="283" href="Relation.Unary.Finiteness.html#283" class="Bound">L</a> <a id="285" class="Symbol">=</a> <a id="287" class="Symbol">(</a><a id="288" href="Relation.Unary.Finiteness.html#288" class="Bound">x</a> <a id="290" class="Symbol">:</a> <a id="292" href="Relation.Binary.Bundles.html#1104" class="Field">Carrier</a> <a id="300" href="Relation.Unary.Finiteness.html#70" class="Bound">X</a><a id="301" class="Symbol">)</a> <a id="303" class="Symbol">→</a> <a id="305" href="Relation.Unary.Finiteness.html#288" class="Bound">x</a> <a id="307" href="Data.List.Membership.Setoid.html#861" class="Function Operator">∈</a> <a id="309" href="Relation.Unary.Finiteness.html#283" class="Bound">L</a>
+
+<a id="312" class="Comment">-- An enumerated type is one where there exists some list</a>
+<a id="370" class="Comment">-- L which contains all of the elements of the type.</a>
+<a id="Enumerated"></a><a id="423" href="Relation.Unary.Finiteness.html#423" class="Function">Enumerated</a> <a id="434" class="Symbol">:</a> <a id="436" href="Agda.Primitive.html#320" class="Primitive">Set</a> <a id="440" class="Symbol">(</a><a id="441" href="Relation.Unary.Finiteness.html#64" class="Bound">a</a> <a id="443" href="Agda.Primitive.html#804" class="Primitive Operator">⊔</a> <a id="445" href="Relation.Unary.Finiteness.html#66" class="Bound">b</a><a id="446" class="Symbol">)</a>
+<a id="448" href="Relation.Unary.Finiteness.html#423" class="Function">Enumerated</a> <a id="459" class="Symbol">=</a> <a id="461" href="Data.Product.Base.html#1371" class="Function">∃[</a> <a id="464" href="Relation.Unary.Finiteness.html#464" class="Bound">L</a> <a id="466" href="Data.Product.Base.html#1371" class="Function">]</a> <a id="468" class="Symbol">(</a><a id="469" href="Relation.Unary.Finiteness.html#214" class="Function">is-enumeration</a> <a id="484" href="Relation.Unary.Finiteness.html#464" class="Bound">L</a><a id="485" class="Symbol">)</a>
+
+
+<a id="489" class="Comment">{-
+-- Another way to formalise enumeration is to say X is isomorphic to some finite prefix of ℕ.
+-- The two variants can be shown to be isomorphic.
+Enumerated&#39; : Set (a ⊔ b)
+Enumerated&#39; = ∃[ n ] (Carrier X ≃ Fin n)
+
+-- A bounded type is one for which all lists larger than some n : ℕ must contain duplicates.
+-- This is weaker a notion than enumeration, as it doesn&#39;t give us a way to choose any elements of X.
+Bounded : Set (a ⊔ b)
+Bounded = ∃[ n ] ((xs : Vec≤ X n) → ¬ Unique (vec xs)) where open Vec≤
+-- todo: would it be better to phrase &quot;contains duplicates&quot; in a positive way?
+-}</a>
+</pre></body></html>

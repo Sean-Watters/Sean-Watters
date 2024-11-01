@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% import 'util.html' as util %}
+
+{% block title %}
+{{ config.title }} | {{ page.title }}
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <article class="box {% if page.draft %}has-background-warning-light{% endif %}">
+          <h1 class="title">
+            {{ page.title }}
+          </h1>
+          <p class="subtitle">{{ util::page_subtitle_metadata(page=page) }}</p>
+          <div class="columns is-multiline is-gapless">
+            <div class="column is-8">
+              {{ util::page_publish_metadata(page=page) }}
+            </div>
+            <div class="column is-4 has-text-right-desktop">
+              {{ util::page_content_metadata(page=page) }}
+            </div>
+            <div class="column">
+              {% if page.taxonomies.categories %}
+              {{ util::render_categories(categories=page.taxonomies.categories) }}
+              {% endif %}
+            </div>
+            <div class="column has-text-right-desktop">
+              {% if page.taxonomies.tags %}
+              {{ util::render_tags(tags=page.taxonomies.tags) }}
+              {% endif %}
+            </div>
+          </div>
+          <div class="content mt-2">
+            {{ util::page_body_metadata(page=page) }}
+          </div>
+        </article>
+      </div>
+      {% if page.extra.toc %}
+      <div class="column is-2 is-hidden-mobile">
+        <aside class="menu" style="position: sticky; top: 48px">
+          <p class="heading has-text-weight-bold">Contents</p>
+          <ul class="menu-list">
+            {% for h1 in page.toc %}
+            <li>
+              <a id="link-{{h1.id}}" class="toc is-size-7 {% if loop.first %}is-active{% endif %}"
+                href="{{ h1.permalink | safe }}">
+                {{ h1.title }}
+              </a>
+              {% if h1.children %}
+              <ul>
+                {% for h2 in h1.children %}
+                <li>
+                  <a id="link-{{h2.id}}" class="toc is-size-7" href="{{ h2.permalink | safe }}">
+                    {{ h2.title }}
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block pagination %}
+{% if page.earlier or page.later or page.lighter or page.heavier or page.higher or page.lower %}
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <nav class="level">
+          {% if page.later %}
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="{{ page.later.permalink }}">
+              <span class="icon mr-2">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              {% if page.later.extra.navtitle %}
+              {{ page.later.extra.navtitle }}
+              {% else %}
+              {{ page.later.title }}
+              {% endif %}
+            </a>
+          </div>
+          {% endif %} {% if page.earlier %}
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="{{ page.earlier.permalink }}">
+              {% if page.earlier.extra.navtitle %}
+              {{ page.earlier.extra.navtitle }}
+              {% else %}
+              {{ page.earlier.title }}
+              {% endif %}
+              <span class="icon ml-2">
+                <i class="fas fa-arrow-circle-right"></i>
+              </span>
+            </a>
+          </div>
+          {% endif %} {% if page.heavier %}
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="{{ page.heavier.permalink }}">
+              <span class="icon mr-2">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              {% if page.heavier.extra.navtitle %}
+              {{ page.heavier.extra.navtitle }}
+              {% else %}
+              {{ page.heavier.title }}
+              {% endif %}
+            </a>
+          </div>
+          {% endif %} {% if page.lighter %}
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="{{ page.lighter.permalink }}">
+              {% if page.lighter.extra.navtitle %}
+              {{ page.lighter.extra.navtitle }}
+              {% else %}
+              {{ page.lighter.title }}
+              {% endif %}
+              <span class="icon ml-2">
+                <i class="fas fa-arrow-circle-right"></i>
+              </span>
+            </a>
+          </div>
+          {% endif %} {% if page.higher %}
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="{{ page.higher.permalink }}">
+              <span class="icon mr-2">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              {% if page.higher.extra.navtitle %}
+              {{ page.higher.extra.navtitle }}
+              {% else %}
+              {{ page.higher.title }}
+              {% endif %}
+            </a>
+          </div>
+          {% endif %} {% if page.lower %}
+          <div class="level-item has-text-centered">
+            <a class="button is-black is-outlined" href="{{ page.lower.permalink }}">
+              {% if page.lower.extra.navtitle %}
+              {{ page.lower.extra.navtitle }}
+              {% else %}
+              {{ page.lower.title }}
+              {% endif %}
+              <span class="icon ml-2">
+                <i class="fas fa-arrow-circle-right"></i>
+              </span>
+            </a>
+          </div>
+          {% endif %}
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
