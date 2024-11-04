@@ -1,6 +1,3 @@
-<!-- pick FA icons in research section based on publication/talk category only.
-  -- latest news or pubs on front page -->
-
 {% macro icons(page) %}
 {% for x in page.extra.attachments %}
 
@@ -135,13 +132,6 @@
 <span><time datetime="{{ page.date }}">{{ page.date | date(format='%d %b %Y') }}</time></span>
 {% endif %}
 {% if page.path is starting_with("/research") %}
-{% if page.extra.doi %}
-<a class="has-text-doi" href="https://doi.org/{{ page.extra.doi }}" target="_blank">
-  <span class="icon" title="{{ page.extra.doi }}">
-    <i class="ai ai-doi"></i>
-  </span>
-</a>
-{% endif %}
 <span class="icon is-small">
   <i class="far fa-calendar-alt"></i>
 </span>
@@ -172,6 +162,28 @@
 {% endif %}
 {% endmacro %}
 
+{% macro maybe_doi(page) %}
+{% if page.extra.doi %}
+<a class="has-text-doi" href="https://doi.org/{{ page.extra.doi }}" target="_blank">
+  <span class="icon" title="{{ page.extra.doi }}">
+    <i class="ai ai-doi"></i>
+  </span>
+</a>
+{% endif %}
+{% endmacro %}
+
+{% macro maybe_distinctions(page) %}
+{% if page.extra.distinctions %}
+{% for distinction in page.extra.distinctions %}
+<br/>
+<span class="has-text-success-dark">
+  <i class="fas fa-medal"></i>
+  {{ distinction }}
+</span>
+{% endfor %}
+{% endif %}
+{% endmacro %}
+
 {% macro page_title_metadata(page) %}
   {% if page.path is starting_with("/research") %}
   {% if "Talk" in page.taxonomies.categories  %}
@@ -198,6 +210,7 @@
 {% if page.extra.review %} <span class="has-text-warning-dark"> {% endif %}
   {% if news %} <span class="has-text-weight-medium">Title:</span> {{ page.title }} {% else %} <span class="has-text-weight-medium">Venue:</span> {{ page.extra.venue }} {% endif %}
 {% if page.extra.review %} </span> {% endif %}
+{{ util::maybe_distinctions(page=page) }}
 {% if not news %}
 
 {% if page.extra.review %}
@@ -218,16 +231,6 @@
 <br/>
 <small> <span class="has-text-warning-dark">{{ page.extra.citation }}</span> </small>
 {% endif %}
-{% if page.extra.distinctions %}
-{% for distinction in page.extra.distinctions %}
-<br/>
-<span class="has-text-success-dark">
-  <i class="fas fa-medal"></i>
-  {{ distinction }}
-</span>
-{% endfor %}
-{% endif %}
-
 {% endif %}
 {% else %}
 {{ page.description }}

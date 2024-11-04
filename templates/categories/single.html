@@ -37,7 +37,9 @@
             <a href='{{ page.permalink }}'>
               {{ page.title }}
             </a>
+  {{ util::maybe_doi(page=page) }}
           </h2>
+          <h3 class="subtitle">{{util::maybe_distinctions(page=page)}}</h3>
           <p class="subtitle">{{ page.description }}</p>
           <div class="columns is-multiline is-gapless">
             <div class="column is-8">

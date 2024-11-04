@@ -21,8 +21,11 @@
 
         {% for page in pages %}
         <article class="box {% if page.draft %}has-background-warning-light{% endif %}">
-          <h2 class="title is-4 has-text-dark">{{ util::page_title_metadata(page=page) }}</h2>
-          <p class="subtitle">{{ util::page_subtitle_metadata(page=page,news=true) }}</p>
+          <h2 class="title is-4 has-text-dark">{{ util::page_title_metadata(page=page) }}
+            {{ util::maybe_doi(page=page) }}
+            </h2>
+          <p class="subtitle">{{ util::page_subtitle_metadata(page=page,news=true) }}
+          </p>
           <div class="columns is-multiline is-gapless">
             <div class="column is-8">
               {{ util::page_publish_metadata(page=page) }}
