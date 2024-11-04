@@ -1,20 +1,34 @@
-{% macro icons(page) %}
+<!-- pick FA icons in research section based on publication/talk category only.
+  -- latest news or pubs on front page -->
 
+{% macro icons(page) %}
 {% for x in page.extra.attachments %}
-{% set path = get_url(path="attachments/" ~ x['pdf'] ~ ".pdf") %}
+
+{% if x['pdf'] %}
+  {% set path = get_url(path="attachments/" ~ x['pdf'] ~ ".pdf") %}
+{% elif x['bib'] %}
+  {% set path = get_url(path="attachments/" ~ x['bib'] ~ ".bib") %}
+{% elif x['link'] %}
+  {% set path = get_url(path=x['link']) %}
+{% elif x['extlink'] %}
+  {% set path = x['extlink'] %}
+{% endif %}
+
+{% set is_main = x['kind'] == "paper" or x['kind'] == "preprint" or x['kind'] == "extended abstract"%}
+
 <a class="has-text-primary-dark" href="{{path}}" target="_blank">
-  <span class="icon-text">
+  <span class="icon-text {% if is_main %} col-pdf-red {% endif %}">
     <span class="icon" title="{{ page.title | title }} (pdf)">
-      {% if x['kind'] == "journal" %}
-      <i class="fas fa-newspaper"></i>
-      {% elif x['kind'] == "proceedings" %}
-      <i class="fas fa-people-roof"></i>
-      {% elif x['kind'] == "submission" %}
-      <i class="fas fa-paper-plane"></i>
+      {% if is_main %}
+      <i class="fas fa-file-pdf"></i>
       {% elif x['kind'] == "slides" %}
       <i class="fas fa-person-chalkboard"></i>
-      {% elif x['kind'] == "poster" %}
-      <i class="fas fa-scroll"></i>
+      {% elif x['kind'] == "agda" %}
+      <i class="fas fa-gears"></i>
+      {% elif x['kind'] == "git" %}
+      <i class="fa-brands fa-git-alt"></i>
+      {% elif x['kind'] == "bibtex" %}
+      <i class="fas fa-quote-left"></i>
       {% else %}
       <i class="fas fa-clapperboard"></i>
       {% endif %}
@@ -159,31 +173,21 @@
 {% endmacro %}
 
 {% macro page_title_metadata(page) %}
-{% if page.extra.review %} <span class="has-text-warning-dark"> {% endif %}
   {% if page.path is starting_with("/research") %}
-  {% if page.extra.review %}
-  <i class="fas fa-person-praying"></i>
-  Submitted a paper to {{ page.extra.venue }} for review
-  {% elif page.extra.accepted %}
-  <i class="fas fa-champagne-glasses"></i>
-  Submission to {{ page.extra.venue }} accepted
-  {% elif "Poster" in page.taxonomies.categories %}
-  <i class="fas fa-scroll"></i>
-  Presented a poster at {{ page.extra.venue }}
-  {% elif "Workshop" in page.taxonomies.categories  %}
+  {% if "Talk" in page.taxonomies.categories  %}
   <i class="fas fa-person-chalkboard"></i>
-  Gave a talk at {{ page.extra.venue }}
-  {% elif "Conference" in page.taxonomies.categories  %}
-  <i class="fas fa-person-chalkboard"></i>
-  Published at {{ util::maybe_venuelink(page=page) }}
-  {% elif "Journal" in page.taxonomies.categories %}
+  Gave a talk at {{ util::maybe_venuelink(page=page) }}
+  {% elif "Publication" in page.taxonomies.categories  %}
   <i class="fas fa-newspaper"></i>
-  Published in {{ util::maybe_venuelink(page=page) }}
+    {% if "Conference" in page.taxonomies.categories %}
+    Published at {{ util::maybe_venuelink(page=page) }}
+    {% elif "Journal" in page.taxonomies.categories %}
+    Published in {{ util::maybe_venuelink(page=page) }}
+    {% endif %}
   {% else %}
-  {{ page.extra.venue }}
+  {{ util::maybe_venuelink(page=page) }}
   {% endif %}
   {% else %} {{ page.title }} {% endif %}
-  {% if page.extra.review %} </span> {% endif %}
 {% endmacro %}
 
 
