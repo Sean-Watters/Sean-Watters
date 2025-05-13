@@ -189,12 +189,22 @@
   {% if "Talk" in page.taxonomies.categories  %}
   <i class="fas fa-person-chalkboard"></i>
   Gave a talk at {{ util::maybe_venuelink(page=page) }}
+  {% elif "TalkFuture" in page.taxonomies.categories  %}
+  <i class="fas fa-person-chalkboard"></i>
+  To give a talk at {{ util::maybe_venuelink(page=page) }}
   {% elif "Publication" in page.taxonomies.categories  %}
   <i class="fas fa-newspaper"></i>
     {% if "Conference" in page.taxonomies.categories %}
     Published at {{ util::maybe_venuelink(page=page) }}
     {% elif "Journal" in page.taxonomies.categories %}
     Published in {{ util::maybe_venuelink(page=page) }}
+    {% endif %}
+  {% elif "PublicationFuture" in page.taxonomies.categories  %}
+  <i class="fas fa-newspaper"></i>
+    {% if "Conference" in page.taxonomies.categories %}
+    To publish at {{ util::maybe_venuelink(page=page) }}
+    {% elif "Journal" in page.taxonomies.categories %}
+    To publish in {{ util::maybe_venuelink(page=page) }}
     {% endif %}
   {% else %}
   {{ util::maybe_venuelink(page=page) }}

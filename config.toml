@@ -42,7 +42,7 @@ navbar_items = [
   { url = "$BASE_URL/", name = "Home" },
   { url = "$BASE_URL/categories/publication", name = "Publications" },
   { url = "$BASE_URL/research", name = "Research Activity" },
-  { url = "$BASE_URL/posts", name = "Blog" },
+#  { url = "$BASE_URL/posts", name = "Blog" },
   { url = "$BASE_URL/cv.pdf", name = "CV" },
  ]},
 ]
