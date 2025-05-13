@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - introductory</title>
+      <link>https://seanwatters.uk</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://seanwatters.uk/tags/introductory/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 28 Oct 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>The Madness of the Modal mu-Calculus</title>
+          <pubDate>Mon, 28 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Sean Watters</author>
+          <link>https://seanwatters.uk/research/msp101-nov24/</link>
+          <guid>https://seanwatters.uk/research/msp101-nov24/</guid>
+          <description xml:base="https://seanwatters.uk/research/msp101-nov24/"></description>
+      </item>
+      <item>
+          <title>(Reflexive) Partial Monoids 101</title>
+          <pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate>
+          <author>Sean Watters</author>
+          <link>https://seanwatters.uk/research/msp101-oct23/</link>
+          <guid>https://seanwatters.uk/research/msp101-oct23/</guid>
+          <description xml:base="https://seanwatters.uk/research/msp101-oct23/"></description>
+      </item>
+      <item>
+          <title>A Tour of Temporal Logic</title>
+          <pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate>
+          <author>Sean Watters</author>
+          <link>https://seanwatters.uk/research/msp101-nov21/</link>
+          <guid>https://seanwatters.uk/research/msp101-nov21/</guid>
+          <description xml:base="https://seanwatters.uk/research/msp101-nov21/"></description>
+      </item>
+    </channel>
+</rss>
