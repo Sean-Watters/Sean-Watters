@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - data structures</title>
+      <link>https://seanwatters.uk</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://seanwatters.uk/tags/data-structures/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Thu, 13 Jun 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>Extensional Finite Sets and Multisets in Type Theory</title>
+          <pubDate>Thu, 13 Jun 2024 00:00:00 +0000</pubDate>
+          <author>Clemens Kupke</author>
+          <link>https://seanwatters.uk/research/types-24/</link>
+          <guid>https://seanwatters.uk/research/types-24/</guid>
+          <description xml:base="https://seanwatters.uk/research/types-24/"></description>
+      </item>
+      <item>
+          <title>A Fresh Look at Commutativity: Free Algebraic Structures via Fresh Lists</title>
+          <pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate>
+          <author>Clemens Kupke</author>
+          <link>https://seanwatters.uk/research/aplas-23/</link>
+          <guid>https://seanwatters.uk/research/aplas-23/</guid>
+          <description xml:base="https://seanwatters.uk/research/aplas-23/"></description>
+      </item>
+    </channel>
+</rss>
