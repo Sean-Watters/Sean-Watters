@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title> - de Bruijn indices</title>
+      <link>https://seanwatters.uk</link>
+      <description></description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="https://seanwatters.uk/tags/de-bruijn-indices/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 28 Oct 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>The Madness of the Modal mu-Calculus</title>
+          <pubDate>Mon, 28 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Sean Watters</author>
+          <link>https://seanwatters.uk/research/msp101-nov24/</link>
+          <guid>https://seanwatters.uk/research/msp101-nov24/</guid>
+          <description xml:base="https://seanwatters.uk/research/msp101-nov24/"></description>
+      </item>
+    </channel>
+</rss>

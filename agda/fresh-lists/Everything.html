@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>Everything</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Symbol">{-#</a> <a id="5" class="Keyword">OPTIONS</a> <a id="13" class="Pragma">--safe</a> <a id="20" class="Pragma">--cubical-compatible</a> <a id="41" class="Symbol">#-}</a>
+<a id="45" class="Keyword">module</a> <a id="52" href="Everything.html" class="Module">Everything</a> <a id="63" class="Keyword">where</a>
+
+<a id="70" class="Comment">-- Freshlists defined inductive-inductively and as a sigma type, and a</a>
+<a id="141" class="Comment">-- proof that this gives isomorphic definitions</a>
+<a id="189" class="Keyword">open</a> <a id="194" class="Keyword">import</a> <a id="201" href="Data.FreshList.InductiveInductive.html" class="Module">Data.FreshList.InductiveInductive</a>
+<a id="235" class="Keyword">open</a> <a id="240" class="Keyword">import</a> <a id="247" href="Data.FreshList.Sigma.html" class="Module">Data.FreshList.Sigma</a>
+
+<a id="269" class="Comment">-- Definitions of various variations on ordered monoids</a>
+<a id="325" class="Keyword">open</a> <a id="330" class="Keyword">import</a> <a id="337" href="Algebra.Structure.OICM.html" class="Module">Algebra.Structure.OICM</a>
+<a id="360" class="Keyword">open</a> <a id="365" class="Keyword">import</a> <a id="372" href="Algebra.Structure.PartialMonoid.html" class="Module">Algebra.Structure.PartialMonoid</a>
+
+<a id="405" class="Comment">-- Bits and pieces</a>
+<a id="424" class="Keyword">open</a> <a id="429" class="Keyword">import</a> <a id="436" href="Relation.Const.html" class="Module">Relation.Const</a>
+<a id="451" class="Keyword">open</a> <a id="456" class="Keyword">import</a> <a id="463" href="Relation.Unary.Finiteness.html" class="Module">Relation.Unary.Finiteness</a>
+<a id="489" class="Keyword">open</a> <a id="494" class="Keyword">import</a> <a id="501" href="Relation.Binary.Isomorphism.html" class="Module">Relation.Binary.Isomorphism</a>
+<a id="529" class="Keyword">open</a> <a id="534" class="Keyword">import</a> <a id="541" href="Data.PosNat.html" class="Module">Data.PosNat</a>
+<a id="553" class="Keyword">open</a> <a id="558" class="Keyword">import</a> <a id="565" href="Axiom.UniquenessOfIdentityProofs.Properties.html" class="Module">Axiom.UniquenessOfIdentityProofs.Properties</a>
+
+<a id="610" class="Comment">-- Definitions of categories, functors, adjunctions</a>
+<a id="662" class="Keyword">open</a> <a id="667" class="Keyword">import</a> <a id="674" href="Category.Base.html" class="Module">Category.Base</a>
+
+<a id="689" class="Comment">-- Freshlists for a strict total order</a>
+<a id="728" class="Keyword">open</a> <a id="733" class="Keyword">import</a> <a id="740" href="Free.IdempotentCommutativeMonoid.Base.html" class="Module">Free.IdempotentCommutativeMonoid.Base</a>
+<a id="778" class="Keyword">open</a> <a id="783" class="Keyword">import</a> <a id="790" href="Free.IdempotentCommutativeMonoid.Properties.html" class="Module">Free.IdempotentCommutativeMonoid.Properties</a>
+<a id="834" class="Keyword">open</a> <a id="839" class="Keyword">import</a> <a id="846" href="Free.IdempotentCommutativeMonoid.Adjunction.html" class="Module">Free.IdempotentCommutativeMonoid.Adjunction</a>
+
+<a id="891" class="Comment">-- Freshlists for a reflexive total order</a>
+<a id="933" class="Keyword">open</a> <a id="938" class="Keyword">import</a> <a id="945" href="Free.CommutativeMonoid.Base.html" class="Module">Free.CommutativeMonoid.Base</a>
+<a id="973" class="Keyword">open</a> <a id="978" class="Keyword">import</a> <a id="985" href="Free.CommutativeMonoid.Properties.html" class="Module">Free.CommutativeMonoid.Properties</a>
+<a id="1019" class="Keyword">open</a> <a id="1024" class="Keyword">import</a> <a id="1031" href="Free.CommutativeMonoid.Adjunction.html" class="Module">Free.CommutativeMonoid.Adjunction</a>
+
+<a id="1066" class="Comment">-- Freshlists for an apartness relation</a>
+<a id="1106" class="Keyword">open</a> <a id="1111" class="Keyword">import</a> <a id="1118" href="Free.LeftRegularMonoid.Base.html" class="Module">Free.LeftRegularMonoid.Base</a>
+<a id="1146" class="Keyword">open</a> <a id="1151" class="Keyword">import</a> <a id="1158" href="Free.LeftRegularMonoid.Properties.html" class="Module">Free.LeftRegularMonoid.Properties</a>
+<a id="1192" class="Keyword">open</a> <a id="1197" class="Keyword">import</a> <a id="1204" href="Free.LeftRegularMonoid.Adjunction.html" class="Module">Free.LeftRegularMonoid.Adjunction</a>
+
+<a id="1239" class="Comment">-- Freshlists for constantly true relation</a>
+<a id="1282" class="Keyword">open</a> <a id="1287" class="Keyword">import</a> <a id="1294" href="Free.Monoid.Base.html" class="Module">Free.Monoid.Base</a>
+<a id="1311" class="Keyword">open</a> <a id="1316" class="Keyword">import</a> <a id="1323" href="Free.Monoid.Adjunction.html" class="Module">Free.Monoid.Adjunction</a>
+
+<a id="1347" class="Comment">-- Freshlists for constantly false relation</a>
+<a id="1391" class="Keyword">open</a> <a id="1396" class="Keyword">import</a> <a id="1403" href="Free.PointedSet.Base.html" class="Module">Free.PointedSet.Base</a>
+<a id="1424" class="Keyword">open</a> <a id="1429" class="Keyword">import</a> <a id="1436" href="Free.PointedSet.Properties.html" class="Module">Free.PointedSet.Properties</a>
+<a id="1463" class="Keyword">open</a> <a id="1468" class="Keyword">import</a> <a id="1475" href="Free.PointedSet.Adjunction.html" class="Module">Free.PointedSet.Adjunction</a>
+
+<a id="1503" class="Comment">-- Freshlists for equality relation</a>
+<a id="1539" class="Keyword">open</a> <a id="1544" class="Keyword">import</a> <a id="1551" href="Free.ReflexivePartialMonoid.Base.html" class="Module">Free.ReflexivePartialMonoid.Base</a>
+<a id="1584" class="Keyword">open</a> <a id="1589" class="Keyword">import</a> <a id="1596" href="Free.ReflexivePartialMonoid.Properties.html" class="Module">Free.ReflexivePartialMonoid.Properties</a>
+<a id="1635" class="Keyword">open</a> <a id="1640" class="Keyword">import</a> <a id="1647" href="Free.ReflexivePartialMonoid.Power.html" class="Module">Free.ReflexivePartialMonoid.Power</a>
+<a id="1681" class="Keyword">open</a> <a id="1686" class="Keyword">import</a> <a id="1693" href="Free.ReflexivePartialMonoid.Adjunction.html" class="Module">Free.ReflexivePartialMonoid.Adjunction</a>
+
+<a id="1733" class="Comment">-- Equivalence between Ordering Principle and Set ≃ STO</a>
+<a id="1789" class="Keyword">open</a> <a id="1794" class="Keyword">import</a> <a id="1801" href="OrderingPrinciple.Base.html" class="Module">OrderingPrinciple.Base</a>
+
+
+
+
+
+
+</pre></body></html>
